@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueWhaleLab | 星辰和大海</title>
+    <style>
+        :root {
+            --star-color: rgba(255, 255, 255, 0.8);
+            --ocean-color: #0a3d62;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                #00152a 0%,
+                var(--ocean-color) 100%
+            );
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .slogan {
+            font-size: 2rem;
+            animation: fadeIn 2s ease-in;
+            line-height: 1.3;
+        }
+
+        .en {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .zh {
+            font-size: 1.3em;
+            font-weight: 400;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        /* 星空动画 */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { 
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+            .slogan { 
+                font-size: 1.5rem;
+                line-height: 1.5;
+            }
+            .zh {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { 
+                font-size: 2rem;
+            }
+            .slogan { 
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态星空 -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <h1>BlueWhaleLab</h1>
+        <div class="slogan">
+            <div class="en">Stars & Oceans</div>
+            <div class="zh">星辰和大海</div>
+        </div>
+        <p style="margin-top: 2rem;">
+            <a href="https://github.com/BlueWhaleLab" 
+               style="color: white; text-decoration: none;
+                      border: 2px solid white; padding: 10px 20px;
+                      border-radius: 25px; transition: all 0.3s;"
+               onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+               onmouseout="this.style.background='transparent'">
+                View GitHub
+            </a>
+        </p>
+    </div>
+
+    <script>
+        // 生成随机星空
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 3 + 1 + 's';
+                
+                star.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}%;
+                    top: ${y}%;
+                    --duration: ${duration};
+                `;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        window.onload = createStars;
+    </script>
+</body>
+</html>
